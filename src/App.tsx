@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {ChangeEvent, FormEvent, useState} from 'react';
+import IncomeInput, {IncomeData} from "./components/IncomeInput";
+import ExpensesInput, {ExpensesData} from "./components/ExpensesInput";
+import SavingsGoalInput, {SavingsData} from "./components/SavingsGoalInput";
+import Calculations from "./components/Calculations";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface FormData extends IncomeData, ExpensesData, SavingsData {
 }
 
-export default App
+function App() {
+    const [formData, setFormData] = useState<FormData>({});
+
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        const parsedValue = parseFloat(value);
+        setFormData(prev => ({
+            ...prev,
+            [name]: isNaN(parsedValue) ? '' : parsedValue
+        }));
+    };
+
+
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        console.log(formData);
+    };
+
+    return (
+        <div className="max-w-xl mx-auto mt-10 p-4 bg-white shadow-md rounded">
+            <form onSubmit={handleSubmit}>
+                <IncomeInput income={formData} handleInputChange={handleInputChange}/>
+                <ExpensesInput expenses={formData} handleInputChange={handleInputChange}/>
+                <SavingsGoalInput savings={formData} handleInputChange={handleInputChange}/>
+                <button
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Save
+                </button>
+            </form>
+            <Calculations income={formData} expenses={formData} savings={formData}/>
+        </div>
+    );
+}
+
+export default App;
