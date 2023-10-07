@@ -1,42 +1,36 @@
-import {useState} from 'react';
-import IncomeInput from "./components/IncomeInput.tsx";
-import ExpensesInput from "./components/ExpensesInput.tsx";
-import SavingsGoalInput from "./components/SavingsGoalInput.tsx";
-import Calculations from "./components/Calculations.tsx";
+import {ChangeEvent, FormEvent, useState} from 'react';
+import IncomeInput, {IncomeData} from "./components/IncomeInput";
+import ExpensesInput, {ExpensesData} from "./components/ExpensesInput";
+import SavingsGoalInput, {SavingsData} from "./components/SavingsGoalInput";
+import Calculations from "./components/Calculations";
+
+interface FormData extends IncomeData, ExpensesData, SavingsData {
+}
 
 function App() {
-    const [formData, setFormData] = useState({
-        monthlySalary: '',
-        sideIncome: '',
-        interestDividends: '',
-        rentalIncome: '',
-        otherIncome: '',
-        housing: '',
-        utilities: '',
-        emergencyFund: '',
-        retirement: '',
-        vacation: '',
-        debtRepayment: '',
-        otherGoals: '',
-    });
+    const [formData, setFormData] = useState<FormData>({});
 
-    const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
-        const {name, value} = e.target;
-        setFormData(prev => ({...prev, [name]: value}));
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        const parsedValue = parseFloat(value);
+        setFormData(prev => ({
+            ...prev,
+            [name]: isNaN(parsedValue) ? '' : parsedValue
+        }));
     };
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        // Handle submit logic.
         console.log(formData);
     };
 
     return (
         <div className="max-w-xl mx-auto mt-10 p-4 bg-white shadow-md rounded">
             <form onSubmit={handleSubmit}>
-                <IncomeInput formData={formData} handleInputChange={handleInputChange}/>
-                <ExpensesInput formData={formData} handleInputChange={handleInputChange}/>
-                <SavingsGoalInput formData={formData} handleInputChange={handleInputChange}/>
+                <IncomeInput income={formData} handleInputChange={handleInputChange}/>
+                <ExpensesInput expenses={formData} handleInputChange={handleInputChange}/>
+                <SavingsGoalInput savings={formData} handleInputChange={handleInputChange}/>
                 <button
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -44,7 +38,7 @@ function App() {
                     Save
                 </button>
             </form>
-            <Calculations formData={formData}/>
+            <Calculations income={formData} expenses={formData} savings={formData}/>
         </div>
     );
 }

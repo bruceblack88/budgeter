@@ -1,5 +1,19 @@
-import React from 'react';
-function SavingsGoalInput({ formData, handleInputChange }) {
+import {ChangeEvent} from 'react';
+
+export interface SavingsData {
+    emergencyFund?: number;
+    retirement?: number;
+    vacation?: number;
+    debtRepayment?: number;
+    otherSavings?: number;
+}
+
+interface SavingsInputProps {
+    savings: Partial<SavingsData>;
+    handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+function SavingsGoalInput({savings, handleInputChange}: SavingsInputProps) {
     return (
         <div className="mb-6">
             <h2 className="text-xl font-bold mb-4">Savings Goals:</h2>
@@ -13,7 +27,7 @@ function SavingsGoalInput({ formData, handleInputChange }) {
                     name="emergencyFund"
                     id="emergencyFund"
                     placeholder="0.00"
-                    value={formData.emergencyFund || ''}
+                    value={savings.emergencyFund || ''}
                     onChange={handleInputChange}
                     className="w-full p-2 border rounded"
                 />
@@ -28,7 +42,7 @@ function SavingsGoalInput({ formData, handleInputChange }) {
                     name="retirement"
                     id="retirement"
                     placeholder="0.00"
-                    value={formData.retirement || ''}
+                    value={savings.retirement || ''}
                     onChange={handleInputChange}
                     className="w-full p-2 border rounded"
                 />

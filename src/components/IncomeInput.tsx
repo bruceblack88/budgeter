@@ -1,5 +1,19 @@
+import {ChangeEvent} from "react";
 
-function IncomeInput({ formData, handleInputChange }) {
+export interface IncomeData {
+    monthlyIncome?: number;
+    sideIncome?: number;
+    interest?: number;
+    rentalIncome?: number;
+    otherIncome?: number;
+}
+
+interface IncomeInputProps {
+    income: Partial<IncomeData>;
+    handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+function IncomeInput({income, handleInputChange}: IncomeInputProps) {
     return (
         <div className="mb-6">
             <h2 className="text-xl font-bold mb-4">Income:</h2>
@@ -10,10 +24,10 @@ function IncomeInput({ formData, handleInputChange }) {
                 </label>
                 <input
                     type="number"
-                    name="monthlySalary"
+                    name="monthlyIncome"  // Change this from 'monthlySalary' to 'monthlyIncome'
                     id="monthlySalary"
                     placeholder="0.00"
-                    value={formData.monthlySalary}
+                    value={income.monthlyIncome || ''}
                     onChange={handleInputChange}
                     className="w-full p-2 border rounded"
                 />

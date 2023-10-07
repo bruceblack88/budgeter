@@ -1,5 +1,27 @@
+import {ChangeEvent} from "react";
 
-function ExpensesInput({ formData, handleInputChange }) {
+export interface ExpensesData {
+    housing?: number;
+    utilities?: number;
+    transportation?: number;
+    groceries?: number;
+    dining?: number;
+    healthcare?: number;
+    insurance?: number;
+    debt?: number;
+    entertainment?: number;
+    savings?: number;
+    education?: number;
+    childcare?: number;
+    miscellaneous?: number;
+}
+
+interface ExpensesInputProps {
+    expenses: Partial<ExpensesData>;
+    handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+function ExpensesInput({expenses, handleInputChange}: ExpensesInputProps) {
     return (
         <div className="mb-6">
             <h2 className="text-xl font-bold mb-4">Expenses:</h2>
@@ -13,7 +35,7 @@ function ExpensesInput({ formData, handleInputChange }) {
                     name="housing"
                     id="housing"
                     placeholder="0.00"
-                    value={formData.housing}
+                    value={expenses.housing || ''}
                     onChange={handleInputChange}
                     className="w-full p-2 border rounded"
                 />
@@ -28,7 +50,7 @@ function ExpensesInput({ formData, handleInputChange }) {
                     name="utilities"
                     id="utilities"
                     placeholder="0.00"
-                    value={formData.utilities}
+                    value={expenses.utilities || ''}
                     onChange={handleInputChange}
                     className="w-full p-2 border rounded"
                 />
