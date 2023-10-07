@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {useState} from 'react';
+import IncomeInput from "./components/IncomeInput.tsx";
+import ExpensesInput from "./components/ExpensesInput.tsx";
+import SavingsGoalInput from "./components/SavingsGoalInput.tsx";
+import Calculations from "./components/Calculations.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [formData, setFormData] = useState({
+        monthlySalary: '',
+        sideIncome: '',
+        interestDividends: '',
+        rentalIncome: '',
+        otherIncome: '',
+        housing: '',
+        utilities: '',
+        emergencyFund: '',
+        retirement: '',
+        vacation: '',
+        debtRepayment: '',
+        otherGoals: '',
+    });
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
+        const {name, value} = e.target;
+        setFormData(prev => ({...prev, [name]: value}));
+    };
+
+    const handleSubmit = (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+        // Handle submit logic.
+        console.log(formData);
+    };
+
+    return (
+        <div className="max-w-xl mx-auto mt-10 p-4 bg-white shadow-md rounded">
+            <form onSubmit={handleSubmit}>
+                <IncomeInput formData={formData} handleInputChange={handleInputChange}/>
+                <ExpensesInput formData={formData} handleInputChange={handleInputChange}/>
+                <SavingsGoalInput formData={formData} handleInputChange={handleInputChange}/>
+                <button
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Save
+                </button>
+            </form>
+            <Calculations formData={formData}/>
+        </div>
+    );
 }
 
-export default App
+export default App;
