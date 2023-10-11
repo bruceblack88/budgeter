@@ -1,9 +1,10 @@
 import {FormEvent, useState} from 'react';
+import IncomeInput from "./components/IncomeInput";
+import ExpensesInput from "./components/ExpensesInput";
+import SavingsGoalInput from "./components/SavingsGoalInput";
 import Calculations from "./components/Calculations";
 import {ExpensesData, IncomeData, SavingsData} from "./types/types.ts";
-import IncomeInput from "./components/IncomeInput.tsx";
-import ExpensesInput from "./components/ExpensesInput.tsx";
-import SavingsGoalInput from "./components/SavingsGoalInput.tsx";
+
 
 interface FormData extends IncomeData, ExpensesData, SavingsData {
 }
@@ -43,7 +44,7 @@ function App() {
                     Save
                 </button>
             </form>
-            <Calculations expenses={formData} income={formData} savings={formData} />
+            <Calculations expenses={formData} income={formData} savings={formData}/>
         </div>
     );
 }

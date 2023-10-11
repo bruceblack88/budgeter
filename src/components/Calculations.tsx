@@ -5,7 +5,7 @@ interface CalculationsProps {
     income: Partial<IncomeData> | undefined;
     savings: Partial<SavingsData> | undefined;
 }
-function Calculations({expenses, income, savings}: CalculationsProps) {
+function Calculations({expenses, income}: CalculationsProps) {
 
     const totalIncome = ['monthlyIncome', 'sideIncome', 'interestDividends', 'rentalIncome', 'otherIncome']
         .reduce((acc, key) => acc + (typeof (income ?? {})[key as keyof typeof income] === "number"
