@@ -16,19 +16,36 @@ export interface ExpensesData {
     miscellaneous?: number;
 }
 
+
+
 interface ExpensesInputProps {
     expenses: Partial<ExpensesData>;
     handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 function ExpensesInput({expenses, handleInputChange}: ExpensesInputProps) {
+    const expenseLabel = {
+    housing: "Housing",
+    utilities: "Utilities",
+    transportation: "Transportation",
+    groceries: "Groceries",
+    dining: "Dining",
+    healthcare: "Healthcare",
+    insurance: "Insurance",
+    debt: "Debt",
+    entertainment: "Entertainment",
+    savings: "Savings",
+    education: "Education",
+    childcare: "Childcare",
+    miscellaneous: "Miscellaneous"
+}
     return (
         <div className="mb-6">
             <h2 className="text-xl font-bold mb-4">Expenses:</h2>
 
             <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="housing">
-                    Housing:
+                    {expenseLabel.housing}
                 </label>
                 <input
                     type="number"
@@ -43,7 +60,7 @@ function ExpensesInput({expenses, handleInputChange}: ExpensesInputProps) {
 
             <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="utilities">
-                    Utilities:
+                    {expenseLabel.utilities}
                 </label>
                 <input
                     type="number"
