@@ -1,14 +1,11 @@
-import {ExpensesData} from "./ExpensesInput";
-import {IncomeData} from "./IncomeInput";
-import {SavingsData} from "./SavingsGoalInput";
+import { ExpensesData, IncomeData, SavingsData } from "../types/types";
 
 interface CalculationsProps {
     expenses: Partial<ExpensesData> | undefined;
     income: Partial<IncomeData> | undefined;
     savings: Partial<SavingsData> | undefined;
 }
-
-function Calculations({expenses, income}: CalculationsProps) {
+function Calculations({expenses, income, savings}: CalculationsProps) {
 
     const totalIncome = ['monthlyIncome', 'sideIncome', 'interestDividends', 'rentalIncome', 'otherIncome']
         .reduce((acc, key) => acc + (typeof (income ?? {})[key as keyof typeof income] === "number"
