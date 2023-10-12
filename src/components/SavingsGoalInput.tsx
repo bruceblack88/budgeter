@@ -1,11 +1,11 @@
 import {ChangeEvent} from 'react';
 
 export interface SavingsData {
-    emergencyFund?: number;
-    retirement?: number;
-    vacation?: number;
-    debtRepayment?: number;
-    otherSavings?: number;
+    emergencyFund?: number | string;
+    retirement?: number | string;
+    vacation?: number | string;
+    debtRepayment?: number | string;
+    otherSavings?: number | string;
 }
 
 interface SavingsInputProps {

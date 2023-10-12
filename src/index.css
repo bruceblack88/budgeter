@@ -31,9 +31,19 @@ body {
   min-height: 100vh;
 }
 
+
 h1 {
+  color: #f9f9f9;
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+h2{
+  color: #f9f9f9;
+}
+
+label{
+  color: #f9f9f9;
 }
 
 button {
