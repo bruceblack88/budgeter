@@ -1,10 +1,10 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
 import IncomeInput, {IncomeData} from "./components/IncomeInput";
-import ExpensesInput, {ExpensesData} from "./components/ExpensesInput";
+import ExpensesInput, {ExpensesCategories} from "./components/ExpensesInput";
 import SavingsGoalInput, {SavingsData} from "./components/SavingsGoalInput";
 import Calculations from "./components/Calculations";
 
-interface FormData extends IncomeData, ExpensesData, SavingsData {
+interface FormData extends IncomeData, ExpensesCategories, SavingsData {
 }
 
 function App() {

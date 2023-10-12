@@ -1,25 +1,25 @@
 import {ChangeEvent} from "react";
 
-export interface ExpensesData {
-    housing?: number;
-    utilities?: number;
-    transportation?: number;
-    groceries?: number;
-    dining?: number;
-    healthcare?: number;
-    insurance?: number;
-    debt?: number;
-    entertainment?: number;
-    savings?: number;
-    education?: number;
-    childcare?: number;
-    miscellaneous?: number;
+export interface ExpensesCategories {
+    housing: number;
+    utilities: number;
+    transportation: number;
+    groceries: number;
+    dining: number;
+    healthcare: number;
+    insurance: number;
+    debt: number;
+    entertainment: number;
+    savings: number;
+    education: number;
+    childcare: number;
+    miscellaneous: number;
 }
 
 
 
 interface ExpensesInputProps {
-    expenses: Partial<ExpensesData>;
+    expenses: Partial<ExpensesCategories>;
     handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -40,11 +40,10 @@ function ExpensesInput({expenses, handleInputChange}: ExpensesInputProps) {
     miscellaneous: "Miscellaneous"
 }
     return (
-        <div className="mb-6">
-            <h2 className="text-xl font-bold mb-4">Expenses:</h2>
-
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="housing">
+        <div>
+            <h2>Expenses:</h2>
+            <div>
+                <label htmlFor="housing">
                     {expenseLabel.housing}
                 </label>
                 <input
@@ -58,8 +57,8 @@ function ExpensesInput({expenses, handleInputChange}: ExpensesInputProps) {
                 />
             </div>
 
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="utilities">
+            <div>
+                <label htmlFor="utilities">
                     {expenseLabel.utilities}
                 </label>
                 <input
@@ -72,8 +71,6 @@ function ExpensesInput({expenses, handleInputChange}: ExpensesInputProps) {
                     className="w-full p-2 border rounded"
                 />
             </div>
-
-            {/* ... Add similar fields for Transportation, Groceries, etc. */}
         </div>
     );
 }
