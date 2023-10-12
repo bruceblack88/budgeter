@@ -1,9 +1,8 @@
-import {ExpensesData} from "./ExpensesInput";
 import {IncomeData} from "./IncomeInput";
 import {SavingsData} from "./SavingsGoalInput";
 
 interface CalculationsProps {
-    expenses: Partial<ExpensesData> | undefined;
+    expenses: Partial<ExpensesCategories> | undefined;
     income: Partial<IncomeData> | undefined;
     savings: Partial<SavingsData> | undefined;
 }

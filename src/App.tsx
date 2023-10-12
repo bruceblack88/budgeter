@@ -1,24 +1,31 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
-import IncomeInput, {IncomeData} from "./components/IncomeInput";
-import ExpensesInput, {ExpensesData} from "./components/ExpensesInput";
-import SavingsGoalInput, {SavingsData} from "./components/SavingsGoalInput";
-import Calculations from "./components/Calculations";
+import ExpensesInput from "./components/ExpensesInput";
+import {Box, Button, FormGroup, Typography} from "@mui/material";
 
-interface FormData extends IncomeData, ExpensesData, SavingsData {
+export interface AppExpenseData {
+    [key: string]: {
+        value: number | string;
+        name: string;
+    };
 }
 
 function App() {
-    const [formData, setFormData] = useState<FormData>({});
+    const [formData, setFormData] = useState<AppExpenseData>({});
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        const parsedValue = parseFloat(value);
+        const {name, value} = e.target;
+        const nameParts = name.split('-');
+        const category = nameParts[0];
+        const fieldType = nameParts[1];
+
         setFormData(prev => ({
             ...prev,
-            [name]: isNaN(parsedValue) ? '' : parsedValue
+            [category]: {
+                ...(prev[category] || {}),
+                [fieldType]: fieldType === 'value' ? (isNaN(parseFloat(value)) ? '' : parseFloat(value)) : value
+            }
         }));
     };
-
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -26,20 +33,15 @@ function App() {
     };
 
     return (
-        <div className="max-w-xl mx-auto mt-10 p-4 bg-white shadow-md rounded">
+        <Box>
+            <Typography variant={"h1"}>BUDGETEER</Typography>
             <form onSubmit={handleSubmit}>
-                <IncomeInput income={formData} handleInputChange={handleInputChange}/>
-                <ExpensesInput expenses={formData} handleInputChange={handleInputChange}/>
-                <SavingsGoalInput savings={formData} handleInputChange={handleInputChange}/>
-                <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                    Save
-                </button>
+                <FormGroup>
+                    <ExpensesInput handleInputChange={handleInputChange} expenses={formData}/>
+                    <Button type="submit">Save</Button>
+                </FormGroup>
             </form>
-            <Calculations income={formData} expenses={formData} savings={formData}/>
-        </div>
+        </Box>
     );
 }
 

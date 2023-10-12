@@ -1,11 +1,11 @@
 import {ChangeEvent} from "react";
 
 export interface IncomeData {
-    monthlyIncome?: number;
-    sideIncome?: number;
-    interest?: number;
-    rentalIncome?: number;
-    otherIncome?: number;
+    monthlyIncome?: number | string;
+    sideIncome?: number | string;
+    interest?: number | string;
+    rentalIncome?: number | string;
+    otherIncome?: number | string;
 }
 
 interface IncomeInputProps {
