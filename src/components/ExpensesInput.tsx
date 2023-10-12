@@ -149,22 +149,14 @@ const ExpensesInput = ({expenses, handleInputChange}: ExpensesInputProps) => {
                             <Input
                                 type="text"
                                 value={expense.name || ''}
-                                onChange={(e) => {
-                                    if (Object.keys(customExpenses[0]).includes(e.target.name)) {
-                                        handleCustomExpenseChange(index, e.target.name as keyof typeof customExpenses[0], e.target.value);
-                                    }
-                                }}
+                                onChange={(e) => handleCustomExpenseChange(index, 'name', e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={4}>
                             <Input
                                 type="number"
                                 value={expense.value || ''}
-                                onChange={(e) => {
-                                    if (Object.keys(customExpenses[0]).includes(e.target.name)) {
-                                        handleCustomExpenseChange(index, e.target.name as keyof typeof customExpenses[0], e.target.value);
-                                    }
-                                }}
+                                onChange={(e) => handleCustomExpenseChange(index, 'value', e.target.value)}
                             />
                         </Grid>
                     </Grid>
