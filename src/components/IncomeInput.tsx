@@ -34,24 +34,26 @@ function IncomeInput({income, handleInputChange}: IncomeInputProps) {
                 <Grid item xs={8}><Typography>Category</Typography></Grid>
                 <Grid item xs={8}><Typography>Amount</Typography></Grid>
             </Grid>
-            {Object.entries(incomeLabel).map(([key, label]) =>(
-                <Box>
-                    <Grid item xs={8}>
-                    <Input
-                        type="text"
-                        value={label}
-                        readOnly
-                    />
-                    </Grid>
-                    <Grid item xs={8}>
-                    <Input
-                        type="number"
-                        name={`${key}-name`}
-                        id="Income Amount"
-                        placeholder="0.00"
-                        value={income[key]?.name || ''}
-                        onChange={handleInputChange}
-                    />
+            {Object.entries(incomeLabel).map(([key, label]) => (
+                <Box mb={3} key={key}>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item xs={8}>
+                            <Input
+                                type="text"
+                                value={label}
+                                readOnly
+                            />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <Input
+                                type="number"
+                                name={`${key}-name`}
+                                id="Income Amount"
+                                placeholder="0.00"
+                                value={income[key]?.name || ''}
+                                onChange={handleInputChange}
+                            />
+                        </Grid>
                     </Grid>
                 </Box>
             ))}
