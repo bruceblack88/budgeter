@@ -2,6 +2,7 @@ import {ChangeEvent, FormEvent, useState} from 'react';
 import ExpensesInput from "./components/ExpensesInput";
 import {Box, Button, FormGroup, Typography} from "@mui/material";
 import IncomeInput from "./components/IncomeInput.tsx";
+import SavingsGoalInput from "./components/SavingsGoalInput.tsx";
 
 export interface AppExpenseData {
     [key: string]: {
@@ -40,6 +41,7 @@ function App() {
                 <FormGroup>
                     <IncomeInput income={formData} handleInputChange={handleInputChange} />
                     <ExpensesInput handleInputChange={handleInputChange} expenses={formData}/>
+                    <SavingsGoalInput savings={formData} handleInputChange={handleInputChange}/>
                     <Button type="submit">Save</Button>
                 </FormGroup>
             </form>
