@@ -1,11 +1,15 @@
 import {ChangeEvent} from 'react';
+import {Box, Input, Typography} from "@mui/material";
 
 export interface SavingsData {
-    emergencyFund?: number | string;
-    retirement?: number | string;
-    vacation?: number | string;
-    debtRepayment?: number | string;
-    otherSavings?: number | string;
+    emergencyFund: {
+        value: number | string;
+        name: string;
+    };
+    retirement: {
+        value: number | string;
+        name: string;
+    };
 }
 
 interface SavingsInputProps {
@@ -15,42 +19,35 @@ interface SavingsInputProps {
 
 function SavingsGoalInput({savings, handleInputChange}: SavingsInputProps) {
     return (
-        <div className="mb-6">
-            <h2 className="text-xl font-bold mb-4">Savings Goals:</h2>
-
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="emergencyFund">
-                    Emergency Fund:
-                </label>
-                <input
+        <Box>
+            <Typography variant={"h2"}>Savings Goals</Typography>
+            <Box>
+                <Typography variant={"h3"}>
+                    Emergency Fund
+                </Typography>
+                <Input
                     type="number"
-                    name="emergencyFund"
+                    name="emergencyFund-value"
                     id="emergencyFund"
                     placeholder="0.00"
-                    value={savings.emergencyFund || ''}
+                    value={savings.emergencyFund?.value || ''}
                     onChange={handleInputChange}
-                    className="w-full p-2 border rounded"
                 />
-            </div>
-
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="retirement">
-                    Retirement:
-                </label>
-                <input
+            </Box>
+            <Box>
+                <Typography variant={"h3"}>
+                    Retirement
+                </Typography>
+                <Input
                     type="number"
-                    name="retirement"
+                    name="retirement-value"
                     id="retirement"
                     placeholder="0.00"
-                    value={savings.retirement || ''}
+                    value={savings.retirement?.value  || ''}
                     onChange={handleInputChange}
-                    className="w-full p-2 border rounded"
                 />
-            </div>
-
-            {/* ... Add similar fields for Vacation, Debt Repayment, Other Goals, etc. */}
-
-        </div>
+            </Box>
+        </Box>
     );
 }
 
