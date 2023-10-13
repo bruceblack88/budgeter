@@ -1,4 +1,5 @@
 import {ChangeEvent} from "react";
+import {Box, Grid, Input, Typography} from "@mui/material";
 
 export interface IncomeData {
     monthlyIncome?: number | string;
@@ -14,27 +15,49 @@ interface IncomeInputProps {
 }
 
 function IncomeInput({income, handleInputChange}: IncomeInputProps) {
+    type IncomeCategories = {
+        [key in | 'monthlyIncome' | 'sideIncome' | 'interest' | 'rentalIncome' | 'otherIncome']: string;
+    }
+
+    const incomeLabel: IncomeCategories = {
+        monthlyIncome: "Monthly Income",
+        sideIncome: "Side Income",
+        interest: "Interest Income",
+        rentalIncome: "Rental Income",
+        otherIncome: "Other Income"
+    };
+
     return (
-        <div className="mb-6">
-            <h2 className="text-xl font-bold mb-4">Income:</h2>
-
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="monthlySalary">
-                    Monthly Salary/Wages:
-                </label>
-                <input
-                    type="number"
-                    name="monthlyIncome"  // Change this from 'monthlySalary' to 'monthlyIncome'
-                    id="monthlySalary"
-                    placeholder="0.00"
-                    value={income.monthlyIncome || ''}
-                    onChange={handleInputChange}
-                    className="w-full p-2 border rounded"
-                />
-            </div>
-
-            {/* ... Add similar fields for Side Income, Interest/Dividends, etc. */}
-        </div>
+        <Box>
+            <Typography variant={"h2"}>Income</Typography>
+            <Grid container spacing={2} alignItems="center">
+                <Grid item xs={8}><Typography>Category</Typography></Grid>
+                <Grid item xs={8}><Typography>Amount</Typography></Grid>
+            </Grid>
+            {Object.entries(incomeLabel).map(([key, label]) => (
+                <Box mb={3} key={key}>
+                    <Grid container spacing={2} alignItems="center">
+                        <Grid item xs={8}>
+                            <Input
+                                type="text"
+                                value={label}
+                                readOnly
+                            />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <Input
+                                type="number"
+                                name={`${key}-name`}
+                                id="Income Amount"
+                                placeholder="0.00"
+                                value={income[key]?.name || ''}
+                                onChange={handleInputChange}
+                            />
+                        </Grid>
+                    </Grid>
+                </Box>
+            ))}
+        </Box>
     );
 }
 
