@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import {ReactNode} from 'react';
 import {Box, Card, CardContent, Typography} from "@mui/material";
 
 interface BudgeteerCardProps {
@@ -6,10 +6,10 @@ interface BudgeteerCardProps {
     children: ReactNode;
 }
 
-const BudgeteerCard: React.FC<BudgeteerCardProps> = ({title, children}) => (
-    <Box>
+const BudgeteerCard = ({title, children}: BudgeteerCardProps) => (
+    <Box position={"absolute"}>
         <Card variant={"outlined"}>
-            <Typography variant={"h2"}>{title}</Typography>
+            <Typography variant={"h2"} align="center">{title}</Typography>
             <CardContent>
                 {children}
             </CardContent>

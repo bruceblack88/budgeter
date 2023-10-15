@@ -1,52 +1,95 @@
-import {IncomeData} from "./IncomeInput";
-import {SavingsData} from "./SavingsGoalInput";
+import {Grid, Typography} from "@mui/material";
+import {PieChart} from "@mui/x-charts";
+
+interface ValueLabelPair {
+    label: string;
+    value?: number;
+}
+
+interface IncomeProps {
+    monthlyIncome?: ValueLabelPair;
+    sideIncome?: ValueLabelPair;
+    interestDividends?: ValueLabelPair;
+    rentalIncome?: ValueLabelPair;
+    otherIncome?: ValueLabelPair;
+}
+
+interface ExpensesProps {
+    housing?: ValueLabelPair;
+    utilities?: ValueLabelPair;
+    transportation?: ValueLabelPair;
+    groceries?: ValueLabelPair;
+    dining?: ValueLabelPair;
+    healthcare?: ValueLabelPair;
+    insurance?: ValueLabelPair;
+    debt?: ValueLabelPair;
+    entertainment?: ValueLabelPair;
+    savings?: ValueLabelPair;
+    education?: ValueLabelPair;
+    childcare?: ValueLabelPair;
+    miscellaneous?: ValueLabelPair;
+}
 
 interface CalculationsProps {
-    expenses: Partial<ExpensesCategories> | undefined;
-    income: Partial<IncomeData> | undefined;
-    savings: Partial<SavingsData> | undefined;
+    income: IncomeProps;
+    expenses: ExpensesProps;
+    savingsGoal: {
+        emergencyFund?: number;
+        retirement?: number;
+    };
 }
 
-function Calculations({expenses, income}: CalculationsProps) {
+const sumValues = (items: any, keys: string[]): number => {
+    return keys.reduce((acc, key) => {
+        const itemValue = items[key as keyof typeof items]?.value || 0;
+        return acc + (typeof itemValue === "number" ? itemValue : 0);
+    }, 0);
+};
 
-    const totalIncome = ['monthlyIncome', 'sideIncome', 'interestDividends', 'rentalIncome', 'otherIncome']
-        .reduce((acc, key) => acc + (typeof (income ?? {})[key as keyof typeof income] === "number"
-            ? (income ?? {})[key as keyof typeof income]
-            : 0), 0);
+const Calculations = ({expenses = {}, income = {}, savingsGoal = {}}: CalculationsProps) => {
+    const incomeKeys = ['monthlyIncome', 'sideIncome', 'interestDividends', 'rentalIncome', 'otherIncome'];
+    const expenseKeys = ['housing', 'utilities', 'transportation', 'groceries', 'dining', 'healthcare', 'insurance', 'debt', 'entertainment', 'savings', 'education', 'childcare', 'miscellaneous'];
 
-    const totalExpenses = ['housing', 'utilities', 'transportation', 'groceries', 'dining', 'healthcare', 'insurance', 'debt', 'entertainment', 'savings', 'education', 'childcare', 'miscellaneous']
-        .reduce((acc, key) => acc + (typeof (expenses ?? {})[key as keyof typeof expenses] === "number"
-            ? (expenses ?? {})[key as keyof typeof expenses]
-            : 0), 0);
-
-    const totalSavings = totalIncome - totalExpenses;
-    const savingsRate = totalIncome !== 0 ? ((totalSavings / totalIncome) * 100).toFixed(2) : '0';
+    const totalIncome = sumValues(income, incomeKeys);
+    const totalExpenses = sumValues(expenses, expenseKeys);
+    const netIncome = totalIncome - totalExpenses;
+    const emergencyFund = savingsGoal.emergencyFund || 0;
+    const retirement = savingsGoal.retirement || 0;
+    const totalSavings = netIncome - emergencyFund - retirement;
 
     return (
-        <div className="mb-6">
-            <h2 className="text-xl font-bold mb-4">Calculations:</h2>
-
-            <div className="mb-4">
-                <span className="text-gray-700 text-sm font-bold">Total Income:</span>
-                <span className="ml-2">${totalIncome.toFixed(2)}</span>
-            </div>
-
-            <div className="mb-4">
-                <span className="text-gray-700 text-sm font-bold">Total Expenses:</span>
-                <span className="ml-2">${totalExpenses.toFixed(2)}</span>
-            </div>
-
-            <div className="mb-4">
-                <span className="text-gray-700 text-sm font-bold">Total Savings:</span>
-                <span className="ml-2">${totalSavings.toFixed(2)}</span>
-            </div>
-
-            <div className="mb-4">
-                <span className="text-gray-700 text-sm font-bold">Savings Rate:</span>
-                <span className="ml-2">{savingsRate}%</span>
-            </div>
-        </div>
+        <Grid container direction="column" alignItems="center" justifyContent="center" spacing={2}>
+            <Grid item xs={12} >
+                <PieChart series={[
+                    {
+                        data: [
+                            {id: 0, value: totalIncome, label: 'Total Income'},
+                            {id: 1, value: totalExpenses, label: 'Total Expenses'},
+                            {id: 2, value: netIncome, label: 'Net Income'},
+                            {id: 3, value: netIncome, label: 'Emergency Fund'},
+                            {id: 4, value: retirement, label: 'Retirement Contributions'},
+                            {id: 5, value: totalSavings, label: 'Total Savings'},
+                        ],
+                    },
+                ]}
+                          width={600}
+                          height={200}
+                />
+            </Grid>
+            <Grid item xs={12} container direction="column" alignItems="center">
+                <Typography variant="h3" align="center">Totals</Typography>
+                <Typography align="center">Total Income: ${totalIncome}</Typography>
+                <Typography align="center">Total Expenses: ${totalExpenses}</Typography>
+                <Typography align="center">Net Income: ${netIncome}</Typography>
+                <Typography align="center">Emergency Fund: ${emergencyFund}</Typography>
+                <Typography align="center">Retirement: ${retirement}</Typography>
+                <Typography align="center">Total Savings: ${totalSavings}</Typography>
+            </Grid>
+        </Grid>
     );
-}
+};
 
 export default Calculations;
+
+
+

@@ -20,9 +20,9 @@ interface SavingsInputProps {
 function SavingsGoalInput({savings, handleInputChange}: SavingsInputProps) {
     return (
         <Box>
-            <Typography variant={"h2"}>Savings Goals</Typography>
+            <Typography variant={"h3"}>Savings Goals</Typography>
             <Box>
-                <Typography variant={"h3"}>
+                <Typography variant={"h4"}>
                     Emergency Fund
                 </Typography>
                 <Input
@@ -35,7 +35,7 @@ function SavingsGoalInput({savings, handleInputChange}: SavingsInputProps) {
                 />
             </Box>
             <Box>
-                <Typography variant={"h3"}>
+                <Typography variant={"h4"}>
                     Retirement
                 </Typography>
                 <Input
