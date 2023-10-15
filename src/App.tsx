@@ -62,7 +62,7 @@ function App() {
 
     return (
         <Box>
-            <Typography variant={"h1"}>Bugeteer</Typography>
+            <Typography variant={"h1"} align="center">Bugeteer</Typography>
             <Grid container spacing={2} alignItems="center" direction={"row"} justifyContent="center">
                 <Grid item xs={6}>
                     <BugeteerCard title={"Enter values if applicable"}>
