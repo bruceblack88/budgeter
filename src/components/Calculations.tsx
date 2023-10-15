@@ -1,54 +1,10 @@
 import {Grid, Typography} from "@mui/material";
 import {PieChart} from "@mui/x-charts";
-
-interface ValueLabelPair {
-    label: string;
-    value?: number;
-}
-
-interface IncomeProps {
-    monthlyIncome?: ValueLabelPair;
-    sideIncome?: ValueLabelPair;
-    interestDividends?: ValueLabelPair;
-    rentalIncome?: ValueLabelPair;
-    otherIncome?: ValueLabelPair;
-}
-
-interface ExpensesProps {
-    housing?: ValueLabelPair;
-    utilities?: ValueLabelPair;
-    transportation?: ValueLabelPair;
-    groceries?: ValueLabelPair;
-    dining?: ValueLabelPair;
-    healthcare?: ValueLabelPair;
-    insurance?: ValueLabelPair;
-    debt?: ValueLabelPair;
-    entertainment?: ValueLabelPair;
-    savings?: ValueLabelPair;
-    education?: ValueLabelPair;
-    childcare?: ValueLabelPair;
-    miscellaneous?: ValueLabelPair;
-}
-
-interface CalculationsProps {
-    income: IncomeProps;
-    expenses: ExpensesProps;
-    savingsGoal: {
-        emergencyFund?: number;
-        retirement?: number;
-    };
-}
-
-const sumValues = (items: any, keys: string[]): number => {
-    return keys.reduce((acc, key) => {
-        const itemValue = items[key as keyof typeof items]?.value || 0;
-        return acc + (typeof itemValue === "number" ? itemValue : 0);
-    }, 0);
-};
+import {incomeKeys} from "./helpers/incomeHelpers.ts";
+import {expenseKeys} from "./helpers/expenseHelpers.ts";
+import {CalculationsProps, sumValues} from "./helpers/calculationHelpers.ts";
 
 const Calculations = ({expenses = {}, income = {}, savingsGoal = {}}: CalculationsProps) => {
-    const incomeKeys = ['monthlyIncome', 'sideIncome', 'interestDividends', 'rentalIncome', 'otherIncome'];
-    const expenseKeys = ['housing', 'utilities', 'transportation', 'groceries', 'dining', 'healthcare', 'insurance', 'debt', 'entertainment', 'savings', 'education', 'childcare', 'miscellaneous'];
 
     const totalIncome = sumValues(income, incomeKeys);
     const totalExpenses = sumValues(expenses, expenseKeys);

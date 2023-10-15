@@ -1,14 +1,9 @@
-import {ReactNode} from 'react';
 import {Box, Card, CardContent, Typography} from "@mui/material";
-
-interface BudgeteerCardProps {
-    title: string;
-    children: ReactNode;
-}
+import {BudgeteerCardProps} from "./helpers/bugeteerCardHelpers.ts";
 
 const BudgeteerCard = ({title, children}: BudgeteerCardProps) => (
     <Box position={"absolute"}>
-        <Card variant={"outlined"}>
+        <Card variant={"outlined"} sx={{overflow:"auto"}}>
             <Typography variant={"h2"} align="center">{title}</Typography>
             <CardContent>
                 {children}

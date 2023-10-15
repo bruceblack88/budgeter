@@ -1,21 +1,5 @@
-import {ChangeEvent} from 'react';
 import {Box, Input, Typography} from "@mui/material";
-
-export interface SavingsData {
-    emergencyFund: {
-        value: number | string;
-        name: string;
-    };
-    retirement: {
-        value: number | string;
-        name: string;
-    };
-}
-
-interface SavingsInputProps {
-    savings: Partial<SavingsData>;
-    handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}
+import {SavingsInputProps} from "./helpers/savingsGoalInputHelpers.ts";
 
 function SavingsGoalInput({savings, handleInputChange}: SavingsInputProps) {
     return (

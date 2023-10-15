@@ -3,26 +3,8 @@ import BugeteerCard from "./components/BugeteerCard";
 import BudgeteerStepper from "./components/BugeteerStepper";
 import {Box, Grid, Typography} from "@mui/material";
 import Calculations from "./components/Calculations";
+import {AppExpenseData, transformToValueLabelPair, ValueLabelPair} from "./components/helpers/appHelpers.ts";
 
-export interface AppExpenseData {
-    [key: string]: {
-        value: number | string;
-        name: string;
-    };
-}
-
-interface ValueLabelPair {
-    label: string;
-    value?: number;
-}
-
-const transformToValueLabelPair = (data: { value: number | string; name: string }): ValueLabelPair => {
-    let parsedValue = typeof data.value === 'string' ? parseFloat(data.value) : data.value;
-    return {
-        label: data.name,
-        value: isNaN(parsedValue) ? undefined : parsedValue
-    };
-};
 
 function App() {
     const [formData, setFormData] = useState<{

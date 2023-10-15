@@ -1,34 +1,9 @@
 import {ChangeEvent} from "react";
 import {Box, Grid, Input, Typography} from "@mui/material";
+import {ExpenseData, expenseLabel} from "./helpers/expenseHelpers.ts";
 
-export interface ExpenseData {
-    [key: string]: {
-        value: number;
-        name: string;
-    };
-}
 
 const ExpensesInput = ({ expenses, handleInputChange }: { expenses: ExpenseData, handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void }) => {
-    type ExpenseCategories = {
-        [key in 'housing' | 'utilities' | 'transportation' | 'groceries' | 'dining' | 'healthcare' | 'insurance' | 'debt' | 'entertainment' | 'savings' | 'education' | 'childcare' | 'miscellaneous']: string;
-    };
-
-    const expenseLabel: ExpenseCategories = {
-        housing: "Housing",
-        utilities: "Utilities",
-        transportation: "Transportation",
-        groceries: "Groceries",
-        dining: "Dining",
-        healthcare: "Healthcare",
-        insurance: "Insurance",
-        debt: "Debt",
-        entertainment: "Entertainment",
-        savings: "Savings",
-        education: "Education",
-        childcare: "Childcare",
-        miscellaneous: "Miscellaneous"
-    };
-
     return (
         <Box>
             <Typography variant={"h2"}>Expenses:</Typography>

@@ -1,14 +1,9 @@
-import {ChangeEvent, FormEvent, useState} from 'react';
+import {useState} from 'react';
 import {Button, FormGroup, Step, StepLabel, Stepper} from "@mui/material";
 import IncomeInput from "./IncomeInput.tsx";
 import ExpensesInput from "./ExpensesInput.tsx";
 import SavingsGoalInput from "./SavingsGoalInput.tsx";
-
-interface BudgeteerStepperProps {
-    formData: any;
-    handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    handleSubmit: (e: FormEvent) => void;
-}
+import {BudgeteerStepperProps} from "./helpers/budgeteerStepperHelpers.ts";
 
 const BudgeteerStepper = ({formData, handleInputChange, handleSubmit}: BudgeteerStepperProps) => {
     const [activeStep, setActiveStep] = useState(0);
@@ -27,7 +22,6 @@ const BudgeteerStepper = ({formData, handleInputChange, handleSubmit}: Budgeteer
                     </Step>
                 ))}
             </Stepper>
-
             <FormGroup>
                 {activeStep === 0 && <IncomeInput income={formData} handleInputChange={handleInputChange}/>}
                 {activeStep === 1 && <ExpensesInput handleInputChange={handleInputChange} expenses={formData}/>}
@@ -51,8 +45,7 @@ const BudgeteerStepper = ({formData, handleInputChange, handleSubmit}: Budgeteer
                 }
             </FormGroup>
         </form>
-    )
-        ;
+    );
 };
 
 export default BudgeteerStepper;

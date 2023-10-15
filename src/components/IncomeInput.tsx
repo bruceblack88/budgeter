@@ -1,30 +1,13 @@
 import {Box, Grid, Input, Typography} from "@mui/material";
 import {ChangeEvent} from "react";
-
-export interface IncomeData {
-    monthlyIncome?: number | string;
-    sideIncome?: number | string;
-    interestDividends?: number | string;
-    rentalIncome?: number | string;
-    otherIncome?: number | string;
-}
+import {IncomeData, incomeLabel} from "./helpers/incomeHelpers.ts";
 
 
 function IncomeInput({income, handleInputChange}: {
     income: IncomeData,
     handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void
 }) {
-    type IncomeCategories = {
-        [key in 'monthlyIncome' | 'sideIncome' | 'interestDividends' | 'rentalIncome' | 'otherIncome']: string;
-    };
 
-    const incomeLabel: IncomeCategories = {
-        monthlyIncome: "Monthly Income",
-        sideIncome: "Side Income",
-        interestDividends: "Interest Income",
-        rentalIncome: "Rental Income",
-        otherIncome: "Other Income"
-    };
 
     return (
         <Box>
