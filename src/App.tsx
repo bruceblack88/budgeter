@@ -3,8 +3,7 @@ import BugeteerCard from "./components/BugeteerCard";
 import BudgeteerStepper from "./components/BugeteerStepper";
 import {Box, Grid, Typography} from "@mui/material";
 import Calculations from "./components/Calculations";
-import {AppExpenseData, transformToValueLabelPair, ValueLabelPair} from "./components/helpers/appHelpers.ts";
-
+import {AppExpenseData, transformToValueLabelPair} from "./components/helpers/appHelpers.ts";
 
 function App() {
     const [formData, setFormData] = useState<{
@@ -79,10 +78,6 @@ function App() {
                                 education: formData.education ? transformToValueLabelPair(formData.education) : undefined,
                                 childcare: formData.childcare ? transformToValueLabelPair(formData.childcare) : undefined,
                                 miscellaneous: formData.miscellaneous ? transformToValueLabelPair(formData.miscellaneous) : undefined,
-                                ...(formData.customExpenses ? formData.customExpenses.reduce((acc, expense) => {
-                                    acc[expense.category] = transformToValueLabelPair(expense);
-                                    return acc;
-                                }, {} as Record<string, ValueLabelPair>) : {})
                             }}
                             savingsGoal={{
                                 emergencyFund: typeof formData.emergencyFund?.value === 'number' ? formData.emergencyFund.value : 0,

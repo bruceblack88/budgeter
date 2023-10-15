@@ -25,3 +25,7 @@ export interface ExpenseData {
 }
 
 export const expenseKeys = ['housing', 'utilities', 'transportation', 'groceries', 'dining', 'healthcare', 'insurance', 'debt', 'entertainment', 'savings', 'education', 'childcare', 'miscellaneous'];
+
+export const hasData = (data: any[]): boolean => {
+    return data.some(val => val !== undefined && val !== null);
+};

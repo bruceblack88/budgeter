@@ -18,7 +18,7 @@ const ExpensesInput = ({ expenses, handleInputChange }: { expenses: ExpenseData,
                             <Typography>{label}</Typography>
                         </Grid>
                         <Grid item xs={4}>
-                            <Input type="number" name={`${key}-value`} placeholder="0.00" value={expenses[key]?.value || ''} onChange={handleInputChange} />
+                            <Input type="number" name={`${key}-value`} placeholder="0.00" value={expenses[key]?.value} onChange={handleInputChange} />
                         </Grid>
                     </Grid>
                 </Box>
